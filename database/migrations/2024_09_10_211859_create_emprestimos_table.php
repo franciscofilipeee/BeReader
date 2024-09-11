@@ -17,6 +17,10 @@ return new class extends Migration
             $table->foreign('livro_id')->references('id')->on('livros');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('biblioteca_id');
+            $table->foreign('biblioteca_id')->references('id')->on('bibliotecas');
+            $table->date('inicio');
+            $table->date('final');
             $table->timestamps();
         });
     }
