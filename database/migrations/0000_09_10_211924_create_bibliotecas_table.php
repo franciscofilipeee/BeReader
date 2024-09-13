@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('logradouro');
             $table->string('bairro');
             $table->string('cidade');
+            $table->string('estado');
             $table->string('cep');
             $table->integer('escola')->default('0');
             $table->timestamps();
