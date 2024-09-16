@@ -22,4 +22,19 @@ class UserTypeController extends Controller
             'nome' => $request->nome
         ]);
     }
+
+    public function delete($id)
+    {
+        return response()->json(UserType::findOrFail($id)->delete());
+    }
+
+    public function list()
+    {
+        return response()->json(UserType::get());
+    }
+
+    public function index()
+    {
+        return view();
+    }
 }

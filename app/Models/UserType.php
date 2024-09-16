@@ -9,7 +9,7 @@ class UserType extends Model
 {
     use HasFactory;
 
-    protected $table = 'users_type';
+    protected $table = 'user_types';
 
     protected $fillable = [
         'nome'
