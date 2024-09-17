@@ -21,6 +21,7 @@ return new class extends Migration
             $table->longText('sinopse');
             $table->unsignedBigInteger('tema_id');
             $table->foreign('tema_id')->references('id')->on('temas_livros');
+            $table->float('nota_media');
             $table->timestamps();
         });
     }
