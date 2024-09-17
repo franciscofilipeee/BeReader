@@ -32,8 +32,4 @@ class EmprestimosController extends Controller
             'final' => $request->final
         ]);
     }
-
-    public function createQrCode() {}
-
-    public function joinQrCode() {}
 }
