@@ -14,7 +14,7 @@
                     <a class="nav-link" href="/">Página inicial</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Livros</a>
+                    <a class="nav-link" href="/livros">Livros</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Bibliotecas</a>
