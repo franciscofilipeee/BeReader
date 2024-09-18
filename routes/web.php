@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserTypeController;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,8 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/livros', [LivrosController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
