@@ -2,7 +2,7 @@
 
 <body>
     @include('layouts.nav')
-    @switch(Auth::user()->id)
+    @switch(Auth::user()->user_type_id)
         @case(1)
             <div>
                 <h2>Meus empréstimos</h2>
