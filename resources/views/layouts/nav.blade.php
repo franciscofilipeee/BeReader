@@ -21,16 +21,13 @@
                 </li>
                 <li class="nav-item">
                     @if (auth()->user() != null)
-                        <a class="nav-link" href="#">Minha conta</a>
+                        <a class="nav-link" href="/profile">Minha conta</a>
                     @else
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a href="/login" class="btn btn-light">Entrar</a>
                             <a href="/register" class="btn btn-light">Cadastre-se</a>
                         </div>
                     @endif
-                </li>
-                <li>
-
                 </li>
             </ul>
         </div>

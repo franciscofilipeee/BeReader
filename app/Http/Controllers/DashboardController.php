@@ -14,10 +14,20 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $livros = Livros::all();
-        $emprestimos = Emprestimos::where('user_id', Auth::user()->id)->get();
-        $bibliotecas = Bibliotecas::all();
-        $resenhas = Avaliacoes::where('user_id', Auth::user()->id)->get();
-        return view('dashboard.usuario', ["livros" => $livros, "emprestimos" => $emprestimos, "bibliotecas" => $bibliotecas, "resenhas" => $resenhas]);
+        switch (Auth::user()->user_type_id) {
+            case 1:
+                $livros = Livros::all();
+                $emprestimos = Emprestimos::where('user_id', Auth::user()->id)->get();
+                $bibliotecas = Bibliotecas::all();
+                $resenhas = Avaliacoes::where('user_id', Auth::user()->id)->get();
+                return view('dashboard.usuario.index', ["livros" => $livros, "emprestimos" => $emprestimos, "bibliotecas" => $bibliotecas, "resenhas" => $resenhas]);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                return view('auth.login');
+        }
     }
 }
