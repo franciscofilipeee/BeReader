@@ -11,7 +11,7 @@ class LivrosController extends Controller
     public function index()
     {
         $livros = Livros::get();
-        return view('web.livros', $livros);
+        return view('web.livros', ["livros" => $livros]);
     }
 
     public function store(Request $request)
