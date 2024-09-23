@@ -16,7 +16,7 @@
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
             <a href="/">
-                <img src="{{ url('/images/logo_withoutbg.png') }}" alt="">
+                <img src="{{ url('/images/logo_withoutbg.png') }}" width="80px">
             </a>
         </div>
 
