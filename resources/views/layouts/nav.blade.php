@@ -1,3 +1,4 @@
+@include('layouts.index')
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="#"><img src=""></a>
@@ -17,11 +18,20 @@
                     <a class="nav-link" href="/livros">Livros</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Bibliotecas</a>
+                    <a class="nav-link" href="/bibliotecas">Bibliotecas</a>
                 </li>
                 <li class="nav-item">
                     @if (auth()->user() != null)
-                        <a class="nav-link" href="/profile">Minha conta</a>
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                {{ auth()->user()->name }}
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Meu perfil</a></li>
+                                <li><a class="dropdown-item" href="#">Sair</a></li>
+                            </ul>
+                        </div>
                     @else
                         <div class="btn-group" role="group" aria-label="Basic example">
                             <a href="/login" class="btn btn-light">Entrar</a>
