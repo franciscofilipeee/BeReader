@@ -15,8 +15,10 @@ class Bibliotecas extends Model
         'nome',
         'logradouro',
         'cidade',
+        'bairro',
         'estado',
         'cep',
-        'escola'
+        'escola',
+        'user_id'
     ];
 }

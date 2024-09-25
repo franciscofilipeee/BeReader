@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BibliotecasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\ProfileController;
@@ -17,6 +18,8 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/livros', [LivrosController::class, 'index']);
+
+Route::get('/bibliotecas', [BibliotecasController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

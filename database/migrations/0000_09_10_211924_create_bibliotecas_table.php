@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('cidade');
             $table->string('estado');
             $table->string('cep');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->integer('escola')->default('0');
             $table->timestamps();
         });
