@@ -24,7 +24,7 @@ class BibliotecasController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'user_type_id' => $request->user_type_id
+            'user_type_id' => 2
         ]);
 
         $biblioteca = Bibliotecas::create([
@@ -37,7 +37,6 @@ class BibliotecasController extends Controller
             'escola' => $request->escola,
             'user_id' => $user->first()->id
         ]);
-
 
         event(new Registered($user));
 
