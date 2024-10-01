@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Livros;
+use App\Models\LivrosEstoque;
 use Illuminate\Http\Request;
 
 class LivrosController extends Controller
@@ -27,5 +28,16 @@ class LivrosController extends Controller
         ]);
 
         dd($livros);
+    }
+
+    public function storeEstoque(Request $request)
+    {
+        LivrosEstoque::create([
+            'estoque' => $request->estoque,
+            'biblioteca_id' => $request->biblioteca_id,
+            'livro_id' => $request->livro_id
+        ]);
+
+        return route('/dashboard');
     }
 }
