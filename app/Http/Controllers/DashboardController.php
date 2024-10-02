@@ -32,7 +32,10 @@ class DashboardController extends Controller
                 break;
             case 3:
                 $temas = TemasLivros::get();
-                return view('dashboard.admin.index', ["temas" => $temas]);
+                $livros = Livros::get();
+                $usuarios = User::where('user_type_id', 1)->get()->paginate(10);
+                $emprestimos = Emprestimos::get();
+                return view('dashboard.admin.index', ["temas" => $temas, "livros" => $livros, "usarios" => $usuarios, "emprestimos" => $emprestimos]);
                 break;
             default:
                 return view('auth.login');

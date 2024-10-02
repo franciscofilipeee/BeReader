@@ -21,7 +21,9 @@ Route::get('/livros', [LivrosController::class, 'index']);
 
 Route::get('/bibliotecas', [BibliotecasController::class, 'index']);
 
-Route::post('/biblioteca/registrarlivro', [LivrosController::class, 'storeEstoque'])->name('register.estoque');
+Route::post('/biblioteca/registerlivro', [LivrosController::class, 'storeEstoque'])->name('register.estoque');
+
+Route::post('/admin/registerlivro', [LivrosController::class, 'store'])->name('register.livros');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
