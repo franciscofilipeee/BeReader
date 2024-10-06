@@ -3,13 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\BibliotecaFotos;
 use App\Models\Bibliotecas;
 use App\Models\User;
 use App\Notifications\UserWelcome;
+use Faker\Core\File;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class BibliotecasController extends Controller
 {
@@ -72,5 +75,23 @@ class BibliotecasController extends Controller
     public function destroy($id)
     {
         Bibliotecas::findOrFail($id)->delete();
+    }
+
+    public function storeFoto(Request $request)
+    {
+        $biblioteca = Bibliotecas::where('user_id', $request->user_id)->first()->id;
+        $foto = $request->foto->store('fotos_biblioteca', 'public');
+        BibliotecaFotos::create([
+            'foto' => $foto,
+            'biblioteca_id' => $biblioteca
+        ]);
+
+        return redirect('/profile');
+    }
+
+    public function destroyFoto(Request $request)
+    {
+        BibliotecaFotos::findOrFail($request->id)->delete();
+        return redirect('/profile');
     }
 }
