@@ -25,6 +25,10 @@ Route::post('/biblioteca/registerlivro', [LivrosController::class, 'storeEstoque
 
 Route::post('/admin/registerlivro', [LivrosController::class, 'store'])->name('register.livros');
 
+Route::post('/biblioteca/store/fotos', [BibliotecasController::class, 'storeFoto'])->name('bibliotecas.store_fotos');
+
+Route::post('/biblioteca/delete/fotos', [BibliotecasController::class, 'destroyFoto'])->name('bibliotecas.delete_foto');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
