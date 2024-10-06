@@ -19,6 +19,12 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('user_type_id');
             $table->foreign('user_type_id')->references('id')->on('user_types');
+            $table->string('logradouro');
+            $table->string('bairro');
+            $table->string('estado');
+            $table->string('cidade');
+            $table->string('estado');
+            $table->string('cep');
             $table->rememberToken();
             $table->timestamps();
         });
