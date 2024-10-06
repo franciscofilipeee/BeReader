@@ -1,10 +1,14 @@
 @include('layouts.index')
-@include('layouts.nav')
+<div style="margin-bottom: 1rem">
+    @include('layouts.nav')
+</div>
 
 <x-guest-layout>
     <form method="POST" action="{{ route('store.biblioteca') }}">
         @csrf
         <!-- Name -->
+        <h1>Cadastro de biblioteca</h1>
+        <br>
         <input type="hidden" name="user_type_id" value="2">
         <div>
             <x-input-label for="name" :value="__('Nome do usuário')" />
@@ -119,4 +123,28 @@
         </div>
     </form>
 </x-guest-layout>
-@include('layouts.footer')
+<script>
+    $("input[name=cep]").blur(function() {
+        var cep = $(this).val().replace(/[^0-9]/, '');
+        if (cep) {
+            var url = 'https://viacep.com.br/ws/' + cep + '/json/';
+            $.ajax({
+                url: url,
+                dataType: 'jsonp',
+                crossDomain: true,
+                contentType: "application/json",
+                success: function(json) {
+                    if (json.logradouro) {
+                        $("input[name=biblioteca_logradouro]").val(json.logradouro);
+                        $("input[name=biblioteca_bairro]").val(json.bairro);
+                        $("input[name=biblioteca_cidade]").val(json.localidade);
+                        $("input[name=estado]").val(json.uf);
+                    }
+                }
+            });
+        }
+    });
+</script>
+<div style="margin-top: 1rem">
+    @include('layouts.footer')
+</div>
