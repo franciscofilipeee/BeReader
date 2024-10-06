@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\BibliotecaFotos;
+use App\Models\Bibliotecas;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -16,8 +19,11 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
+        $biblioteca = Bibliotecas::where('user_id', Auth::user()->id)->first();
+        $fotos = BibliotecaFotos::where('biblioteca_id', $biblioteca->id)->get();
+        return view('perfil.bibliotecas.index', [
+            'biblioteca' => $biblioteca,
+            'fotos' => $fotos
         ]);
     }
 
