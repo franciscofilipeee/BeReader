@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign('user_type_id')->references('id')->on('user_types');
             $table->string('logradouro');
             $table->string('bairro');
-            $table->string('estado');
             $table->string('cidade');
             $table->string('estado');
             $table->string('cep');
