@@ -32,6 +32,8 @@ Route::post('/biblioteca/store/fotos', [BibliotecasController::class, 'storeFoto
 
 Route::post('/biblioteca/delete/fotos', [BibliotecasController::class, 'destroyFoto'])->name('bibliotecas.delete_foto');
 
+Route::get('/biblioteca/detalhes/{id}', [BibliotecasController::class, 'list']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
