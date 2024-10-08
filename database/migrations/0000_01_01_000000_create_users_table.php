@@ -19,11 +19,12 @@ return new class extends Migration
             $table->string('password');
             $table->unsignedBigInteger('user_type_id');
             $table->foreign('user_type_id')->references('id')->on('user_types');
-            $table->string('logradouro');
-            $table->string('bairro');
-            $table->string('cidade');
-            $table->string('estado');
-            $table->string('cep');
+            $table->string('logradouro')->nullable();
+            $table->string('bairro')->nullable();
+            $table->string('cidade')->nullable();
+            $table->string('estado')->nullable();
+            $table->string('cep')->nullable();
+            $table->string('foto')->default('profile_pic.svg');
             $table->rememberToken();
             $table->timestamps();
         });
