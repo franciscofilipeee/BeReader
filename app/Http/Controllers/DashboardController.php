@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Autores;
 use App\Models\Avaliacoes;
 use App\Models\Bibliotecas;
 use App\Models\Emprestimos;
@@ -33,9 +34,10 @@ class DashboardController extends Controller
             case 3:
                 $temas = TemasLivros::get();
                 $livros = Livros::get();
-                $usuarios = User::where('user_type_id', 1)->get()->paginate(10);
+                $usuarios = User::where('user_type_id', 1)->get()->count();
                 $emprestimos = Emprestimos::get();
-                return view('dashboard.admin.index', ["temas" => $temas, "livros" => $livros, "usarios" => $usuarios, "emprestimos" => $emprestimos]);
+                $autores = Autores::get();
+                return view('dashboard.admin.index', ["temas" => $temas, "livros" => $livros, "usarios" => $usuarios, "emprestimos" => $emprestimos, "autores" => $autores]);
                 break;
             default:
                 return view('auth.login');

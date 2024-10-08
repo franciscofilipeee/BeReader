@@ -4,6 +4,7 @@ use App\Http\Controllers\BibliotecasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TemasController;
 use App\Http\Controllers\UserTypeController;
 use App\Models\Bibliotecas;
 use App\Models\Emprestimos;
@@ -24,6 +25,8 @@ Route::get('/bibliotecas', [BibliotecasController::class, 'index']);
 Route::post('/biblioteca/registerlivro', [LivrosController::class, 'storeEstoque'])->name('register.estoque');
 
 Route::post('/admin/registerlivro', [LivrosController::class, 'store'])->name('register.livros');
+
+Route::post('/admin/registertema', [TemasController::class, 'store'])->name('register.temas');
 
 Route::post('/biblioteca/store/fotos', [BibliotecasController::class, 'storeFoto'])->name('bibliotecas.store_fotos');
 
