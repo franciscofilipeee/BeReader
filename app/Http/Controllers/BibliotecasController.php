@@ -69,7 +69,7 @@ class BibliotecasController extends Controller
 
     public function list($id)
     {
-        Bibliotecas::findOrFail($id)->first();
+        return view('perfil.bibliotecas.detalhes', ["biblioteca" => Bibliotecas::findOrFail($id)->with('fotos')->first()]);
     }
 
     public function destroy($id)
@@ -91,7 +91,9 @@ class BibliotecasController extends Controller
 
     public function destroyFoto(Request $request)
     {
-        BibliotecaFotos::findOrFail($request->id)->delete();
+        $foto = BibliotecaFotos::findOrFail($request->id);
+        Storage::delete($foto->first()->foto);
+        $foto->delete();
         return redirect('/profile');
     }
 }

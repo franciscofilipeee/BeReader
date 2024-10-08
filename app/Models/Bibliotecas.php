@@ -21,4 +21,9 @@ class Bibliotecas extends Model
         'escola',
         'user_id'
     ];
+
+    public function fotos()
+    {
+        return $this->hasMany(BibliotecaFotos::class, 'biblioteca_id', 'id');
+    }
 }
