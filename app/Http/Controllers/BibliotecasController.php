@@ -7,10 +7,10 @@ use App\Models\BibliotecaFotos;
 use App\Models\Bibliotecas;
 use App\Models\User;
 use App\Notifications\UserWelcome;
-use Faker\Core\File;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File as FacadesFile;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -69,7 +69,7 @@ class BibliotecasController extends Controller
 
     public function list($id)
     {
-        return view('perfil.bibliotecas.detalhes', ["biblioteca" => Bibliotecas::findOrFail($id)->with('fotos')->first()]);
+        return view('perfil.bibliotecas.detalhes', ["biblioteca" => Bibliotecas::findOrFail($id)->first(), "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get()]);
     }
 
     public function destroy($id)
@@ -91,9 +91,10 @@ class BibliotecasController extends Controller
 
     public function destroyFoto(Request $request)
     {
-        $foto = BibliotecaFotos::findOrFail($request->id);
-        Storage::delete($foto->first()->foto);
+        $foto = BibliotecaFotos::where('id', $request->id)->first();
+        $json = json_decode($foto);
         $foto->delete();
+        FacadesFile::delete($json->foto);
         return redirect('/profile');
     }
 }
