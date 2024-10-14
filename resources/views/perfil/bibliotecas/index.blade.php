@@ -95,7 +95,7 @@
                 @foreach ($fotos as $foto)
                     <tr>
                         <th scope="row">{{ $foto->id }}</th>
-                        <td><img src="{{ Storage::url($foto->foto) }}" style="max-width: 200px"></td>
+                        <td><img src="{{ $foto->foto }}" style="max-width: 200px"></td>
                         <th scope="row">
                             <form action="{{ route('bibliotecas.delete_foto') }}" method="post">
                                 @csrf
