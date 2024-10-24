@@ -8,22 +8,43 @@
             <div class="col-md-12" style="display: flex">
                 <div class="col-md-12">
                     <label>Nome</label>
-                    <input type="text" name="name" class="form-control" value="{{ $biblioteca->nome }}">
+                    <input type="text" name="biblioteca_name" class="form-control" value="{{ $biblioteca->nome }}">
                 </div>
             </div>
             <br>
             <div class="col-md-12" style="display: flex">
                 <div class="col-md-6">
                     <label>Logradouro</label>
-                    <input type="text" name="logradouro" class="form-control" value={{ $biblioteca->logradouro }}>
+                    <input type="text" name="biblioteca_logradouro" class="form-control"
+                        value="{{ $biblioteca->logradouro }}">
                 </div>
                 <div class="col-md-3">
                     <label>Cidade</label>
-                    <input type="text" name="logradouro" class="form-control" value={{ $biblioteca->cidade }}>
+                    <input type="text" name="biblioteca_cidade" class="form-control"
+                        value="{{ $biblioteca->cidade }}">
                 </div>
                 <div class="col-md-3">
+                    <label>Bairro</label>
+                    <input type="text" name="biblioteca_bairro" class="form-control"
+                        value="{{ $biblioteca->bairro }}">
+                </div>
+            </div>
+            <br>
+            <div class="col-md-12" style="display: flex">
+                <div class="col-md-3">
+                    <label>CEP</label>
+                    <input type="text" name="cep" class="form-control" value="{{ $biblioteca->cep }}">
+                </div>
+                <div class="col-md-3">
+                    <label>É uma escola?</label>
+                    <select name="escola" class="form-control" value="{{ $biblioteca->escola }}">
+                        <option value="0">Não sou uma escola</option>
+                        <option value="1">Sou uma escola</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
                     <label>Estado</label>
-                    <select id="estado" class="form-control" name="estado" value={{ $biblioteca->estado }}>
+                    <select id="estado" class="form-control" name="estado" value="{{ $biblioteca->estado }}">
                         <option value="" selected disabled hidden>Estado</option>
                         <option value="AC">Acre</option>
                         <option value="AL">Alagoas</option>
@@ -52,20 +73,6 @@
                         <option value="SP">São Paulo</option>
                         <option value="SE">Sergipe</option>
                         <option value="TO">Tocantins</option>
-                    </select>
-                </div>
-            </div>
-            <br>
-            <div class="col-md-12" style="display: flex">
-                <div class="col-md-3">
-                    <label>CEP</label>
-                    <input type="text" name="cep" class="form-control" value="{{ $biblioteca->valor }}">
-                </div>
-                <div class="col-md-3">
-                    <label>É uma escola?</label>
-                    <select name="escola" class="form-control" value="{{ $biblioteca->escola }}">
-                        <option value="0">Não sou uma escola</option>
-                        <option value="1">Sou uma escola</option>
                     </select>
                 </div>
             </div>
@@ -108,5 +115,27 @@
             </tbody>
         </table>
     </div>
+    <script>
+        $("input[name=cep]").blur(function() {
+            var cep = $(this).val().replace(/[^0-9]/, '');
+            if (cep) {
+                var url = 'https://viacep.com.br/ws/' + cep + '/json/';
+                $.ajax({
+                    url: url,
+                    dataType: 'jsonp',
+                    crossDomain: true,
+                    contentType: "application/json",
+                    success: function(json) {
+                        if (json.logradouro) {
+                            $("input[name=biblioteca_logradouro]").val(json.logradouro);
+                            $("input[name=biblioteca_bairro]").val(json.bairro);
+                            $("input[name=biblioteca_cidade]").val(json.localidade);
+                            $("input[name=estado]").val(json.uf);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
     @include('layouts.footer')
 </body>

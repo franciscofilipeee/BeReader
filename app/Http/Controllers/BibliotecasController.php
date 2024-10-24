@@ -29,7 +29,6 @@ class BibliotecasController extends Controller
             'password' => Hash::make($request->password),
             'user_type_id' => 2
         ]);
-
         $biblioteca = Bibliotecas::create([
             'nome' => $request->biblioteca_name,
             'logradouro' => $request->biblioteca_logradouro,
