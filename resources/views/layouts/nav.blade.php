@@ -29,8 +29,8 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Meu perfil</a></li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}">Sair</a>
-                                </li>
+                                <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}">Sair</a></li>
                             </ul>
                         </div>
                     @else
