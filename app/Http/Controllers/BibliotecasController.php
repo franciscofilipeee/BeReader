@@ -69,17 +69,15 @@ class BibliotecasController extends Controller
 
     public function list($id)
     {
-<<<<<<< HEAD
         $biblioteca = Bibliotecas::findOrFail($id);
         $auth = Auth::user();
         if ($auth != null) {
-            $url = Http::get("https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . "$biblioteca->cep" . "&origins=" . "$auth->cep" . "&units=metrical&key=AIzaSyAOX2FeN4aP2BL-Cm6R7I9KLNiag1eRrvc");
+            $url = Http::get("https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . "$biblioteca->cep" . "&origins=" . "$auth->cep" . "&units=metrical&key=AIzaSyCMXAxo1LgqXFglDqVwPYesjRPTkMRS6wo");
             $json = json_decode($url);
+            return view('perfil.bibliotecas.detalhes', ["biblioteca" => Bibliotecas::findOrFail($id)->first(), "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "distancia" => $json->rows[0]->elements[0]->distance->text]);
+        } else {
+            return view('perfil.bibliotecas.detalhes', ["biblioteca" => Bibliotecas::findOrFail($id)->first(), "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get()]);
         }
-        return view('perfil.bibliotecas.detalhes', ["biblioteca" => Bibliotecas::findOrFail($id)->with('fotos')->first(), "distancia" => $json->rows[0]->elements[0]->distance->text]);
-=======
-        return view('perfil.bibliotecas.detalhes', ["biblioteca" => Bibliotecas::findOrFail($id)->first(), "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get()]);
->>>>>>> 6c7c2db46cd57d95029437a79ce33b95ed519ada
     }
 
     public function destroy($id)
