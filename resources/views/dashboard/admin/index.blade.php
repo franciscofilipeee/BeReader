@@ -72,9 +72,6 @@
             <br>
             <button type="submit" class="btn btn-success">Cadastrar</button>
         </form>
-        <hr>
-        <h2>Cadastrar livro</h2>
-
     </div>
     @include('layouts.footer')
 </body>
