@@ -3,6 +3,7 @@
 <body>
     @include('layouts.nav')
     <div class="d-flex w-100">
+        <h1>Lista de livros</h1>
         @foreach ($livros as $livro)
             <div class="card mb-3" style="max-width: 540px;">
                 <div class="row g-0">
