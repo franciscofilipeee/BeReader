@@ -17,12 +17,14 @@ class LivrosController extends Controller
 
     public function store(Request $request)
     {
+        $capa = $request->capa->store('livros_capas', 'public');
+
         $livros = Livros::create([
             "nome" => $request->nome,
             "autor" => $request->autor,
             "data_lancamento" => $request->data_lancamento,
             "edicao" => $request->edicao,
-            "capa" => $request->capa,
+            "capa" => $capa,
             "sinopse" => $request->sinopse,
             "tema_id" => $request->tema_id
         ]);
