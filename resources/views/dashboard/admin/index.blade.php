@@ -13,7 +13,6 @@
             <br>
             <button type="submit" class="btn btn-success">Cadastrar</button>
         </form>
-        <br>
         <hr>
         <h2>Cadastrar livro</h2>
         <form action="{{ route('register.livros') }}" method="post">
@@ -40,8 +39,20 @@
                     </select>
                 </div>
             </div>
+            <br>
+            <div class="col-md-12 d-flex gap-1">
+                <div class="col-md-8">
+                    <label>Sinopse</label>
+                    <input type="text" class="form-control" name="sinopse">
+                </div>
+                <div class="col-md-4">
+                    <label>Capa do livro</label>
+                    <input type="file" class="form-control" name="capa">
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
         </form>
-        <br>
         <hr>
         <h2>Cadastrar autor</h2>
         <form action="{{ route('register.livros') }}" method="post">
@@ -58,33 +69,12 @@
                     </select>
                 </div>
             </div>
+            <br>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
         </form>
-        <br>
         <hr>
         <h2>Cadastrar livro</h2>
-        <form action="{{ route('register.livros') }}" method="post">
-            @csrf
-            <div class="col-md-6">
-                <label>Nome</label>
-                <input type="text" name="nome" class="form-control">
-            </div>
-            <div class="col-md-4">
-                <label>Autor</label>
-                <select name="autor" class="form-control">
-                    @foreach ($autores as $autor)
-                        <option value="{{ $autor->id }}">{{ $autor->nome }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-md-2">
-                <label>Tema</label>
-                <select name="tema_id" class="form-control">
-                    @foreach ($temas as $tema)
-                        <option value="{{ $tema->id }}" class="form-control">{{ $tema->nome }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </form>
+
     </div>
     @include('layouts.footer')
 </body>
