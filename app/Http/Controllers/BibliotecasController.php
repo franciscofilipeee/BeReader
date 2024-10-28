@@ -7,11 +7,11 @@ use App\Models\BibliotecaFotos;
 use App\Models\Bibliotecas;
 use App\Models\User;
 use App\Notifications\UserWelcome;
-use Faker\Core\File;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 
 class BibliotecasController extends Controller
@@ -69,7 +69,13 @@ class BibliotecasController extends Controller
 
     public function list($id)
     {
-        return view('perfil.bibliotecas.detalhes', ["biblioteca" => Bibliotecas::findOrFail($id)->with('fotos')->first()]);
+        $biblioteca = Bibliotecas::findOrFail($id);
+        $auth = Auth::user();
+        if ($auth != null) {
+            $url = Http::get("https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . "$biblioteca->cep" . "&origins=" . "$auth->cep" . "&units=metrical&key=AIzaSyAOX2FeN4aP2BL-Cm6R7I9KLNiag1eRrvc");
+            $json = json_decode($url);
+        }
+        return view('perfil.bibliotecas.detalhes', ["biblioteca" => Bibliotecas::findOrFail($id)->with('fotos')->first(), "distancia" => $json->rows[0]->elements[0]->distance->text]);
     }
 
     public function destroy($id)
@@ -96,4 +102,6 @@ class BibliotecasController extends Controller
         $foto->delete();
         return redirect('/profile');
     }
+
+    public function listByDistance() {}
 }
