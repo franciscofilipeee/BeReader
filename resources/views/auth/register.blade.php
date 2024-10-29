@@ -44,6 +44,11 @@
         <br>
         <hr>
         <div class="mt-4">
+            <x-input-label for="nome" :value="__('CEP')" />
+            <x-text-input id="cep" class="form-control" type="text" name="cep" required autofocus
+                autocomplete="name" />
+        </div>
+        <div class="mt-4">
             <x-input-label for="nome" :value="__('Logradouro')" />
             <x-text-input id="logradouro" class="form-control" type="text" name="logradouro" required autofocus
                 autocomplete="name" />
@@ -56,11 +61,6 @@
         <div class="mt-4">
             <x-input-label for="nome" :value="__('Cidade')" />
             <x-text-input id="cidade" class="form-control" type="text" name="cidade" required autofocus
-                autocomplete="name" />
-        </div>
-        <div class="mt-4">
-            <x-input-label for="nome" :value="__('CEP')" />
-            <x-text-input id="cep" class="form-control" type="text" name="cep" required autofocus
                 autocomplete="name" />
         </div>
         <div class="mt-4">
