@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutoresController;
 use App\Http\Controllers\BibliotecasController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LivrosController;
@@ -20,6 +21,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 Route::get('/livros', [LivrosController::class, 'index']);
 
+Route::get('/livro/{id}', [LivrosController::class, 'list']);
+
 Route::get('/bibliotecas', [BibliotecasController::class, 'index']);
 
 Route::post('/biblioteca/registerlivro', [LivrosController::class, 'storeEstoque'])->name('register.estoque');
@@ -27,6 +30,8 @@ Route::post('/biblioteca/registerlivro', [LivrosController::class, 'storeEstoque
 Route::post('/admin/registerlivro', [LivrosController::class, 'store'])->name('register.livros');
 
 Route::post('/admin/registertema', [TemasController::class, 'store'])->name('register.temas');
+
+Route::post('/admin/registerautor', [AutoresController::class, 'store'])->name('register.autores');
 
 Route::post('/biblioteca/store/fotos', [BibliotecasController::class, 'storeFoto'])->name('bibliotecas.store_fotos');
 

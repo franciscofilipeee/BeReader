@@ -14,16 +14,13 @@ return new class extends Migration
         Schema::create('livros', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('autor');
-            $table->string('data_lancamento');
-            $table->string('edicao');
             $table->string('capa');
             $table->longText('sinopse');
             $table->unsignedBigInteger('tema_id');
             $table->foreign('tema_id')->references('id')->on('temas_livros');
             $table->unsignedBigInteger('autor_id');
             $table->foreign('autor_id')->references('id')->on('autores');
-            $table->float('nota_media');
+            $table->float('nota_media')->default(0);
             $table->timestamps();
         });
     }

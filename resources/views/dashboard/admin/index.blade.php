@@ -15,7 +15,8 @@
         </form>
         <hr>
         <h2>Cadastrar livro</h2>
-        <form action="{{ route('register.livros') }}" method="post">
+
+        <form action="{{ route('register.livros') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="col-md-12 d-flex gap-1">
                 <div class="col-md-6">
@@ -26,7 +27,8 @@
                     <label>Autor</label>
                     <select name="autor" class="form-control">
                         @foreach ($autores as $autor)
-                            <option value="{{ $autor->id }}" class="form-control">{{ $autor->nome }}</option>
+                            <option value="{{ $autor->id }}" class="form-control">{{ $autor->nome }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -41,9 +43,9 @@
             </div>
             <br>
             <div class="col-md-12 d-flex gap-1">
-                <div class="col-md-8">
+                <div class="col-md-8 ">
                     <label>Sinopse</label>
-                    <input type="text" class="form-control" name="sinopse">
+                    <textarea class="form-control" name="sinopse"></textarea>
                 </div>
                 <div class="col-md-4">
                     <label>Capa do livro</label>
@@ -55,7 +57,7 @@
         </form>
         <hr>
         <h2>Cadastrar autor</h2>
-        <form action="{{ route('register.livros') }}" method="post">
+        <form action="{{ route('register.autores') }}" method="post">
             @csrf
             <div class="col-md-12 d-flex gap-1">
                 <div class="col-md-6">

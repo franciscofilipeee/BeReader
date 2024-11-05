@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Avaliacoes;
 use App\Models\Livros;
 use App\Models\LivrosEstoque;
 use Illuminate\Http\Request;
@@ -19,17 +20,15 @@ class LivrosController extends Controller
     {
         $capa = $request->capa->store('livros_capas', 'public');
 
-        $livros = Livros::create([
+        Livros::create([
             "nome" => $request->nome,
-            "autor" => $request->autor,
-            "data_lancamento" => $request->data_lancamento,
-            "edicao" => $request->edicao,
+            "autor_id" => $request->autor,
             "capa" => $capa,
             "sinopse" => $request->sinopse,
             "tema_id" => $request->tema_id
         ]);
 
-        dd($livros);
+        return redirect('/dashboard');
     }
 
     public function storeEstoque(Request $request)
@@ -41,5 +40,10 @@ class LivrosController extends Controller
         ]);
 
         return route('/dashboard');
+    }
+
+    public function list($id)
+    {
+        return view('web.livro', ["livro" => Livros::find($id)->first(), "comentarios" => Avaliacoes::where('livro_id', $id)]);
     }
 }

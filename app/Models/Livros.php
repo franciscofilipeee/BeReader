@@ -13,11 +13,10 @@ class Livros extends Model
 
     protected $fillable = [
         'nome',
-        'autor',
-        'data_lancamento',
-        'edicao',
+        'autor_id',
         'capa',
         'sinopse',
-        'tema_id'
+        'tema_id',
+        'nota_media'
     ];
 }
