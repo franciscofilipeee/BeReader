@@ -33,7 +33,7 @@ class DashboardController extends Controller
                 break;
             case 3:
                 $temas = TemasLivros::get();
-                $livros = Livros::get();
+                $livros = Livros::with('autor', 'tema')->get();
                 $usuarios = User::where('user_type_id', 1)->get()->count();
                 $emprestimos = Emprestimos::get();
                 $autores = Autores::get();

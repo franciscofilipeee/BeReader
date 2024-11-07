@@ -46,4 +46,10 @@ class LivrosController extends Controller
     {
         return view('web.livro', ["livro" => Livros::find($id)->first(), "comentarios" => Avaliacoes::where('livro_id', $id)]);
     }
+
+    public function delete(Request $request)
+    {
+        Livros::find($request->id)->delete();
+        return redirect('/dashboard');
+    }
 }

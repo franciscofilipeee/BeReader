@@ -19,4 +19,14 @@ class Livros extends Model
         'tema_id',
         'nota_media'
     ];
+
+    public function autor()
+    {
+        return $this->belongsTo(Autores::class, 'autor_id', 'id');
+    }
+
+    public function tema()
+    {
+        return $this->belongsTo(TemasLivros::class, 'tema_id', 'id');
+    }
 }

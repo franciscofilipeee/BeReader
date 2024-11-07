@@ -3,7 +3,7 @@
 <body>
     @include('layouts.nav')
     <h1>Lista de bibliotecas</h1>
-    <div class="d-flex w-100" style="margin: 1rem;">
+    <div class=" w-100 gap-1">
         @foreach ($bibliotecas as $biblioteca)
             <a href="{{ '/biblioteca/detalhes/' . $biblioteca->id }}">
                 <div class="card">

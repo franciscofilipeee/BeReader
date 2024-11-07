@@ -8,10 +8,11 @@
                 class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                 <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
             </svg> {{ $biblioteca->logradouro }}, {{ $biblioteca->bairro }}, {{ $biblioteca->cidade }},
-            {{ $biblioteca->estado }}.
-            Aproximadamente <b>{{ $distancia }}</b> de você!
+            {{ $biblioteca->estado }}. @if (isset($distancia))
+                Aproximadamente <b>{{ $distancia }}</b> de você!
+            @endif
         </p>
-        @if ($fotos != null)
+        @if (isset($fotos))
         @else
             <div id="carouselExample" class="carousel slide">
                 <div class="carousel-inner">
@@ -37,8 +38,40 @@
                 </button>
             </div>
         @endif
-        <table>
-
+        <table class="table" style="min-height: 20rem">
+            <thead>
+                <tr>
+                    <th scope="col">Capa</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Tema</th>
+                    <th scope="col">Estoque</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (isset($livros_estoque))
+                    @foreach ($livros_estoque as $livro_estoque)
+                        <tr>
+                            <td><img src="{{ $livro_estoque->capa }}" style="max-width: 200px"></td>
+                            <th scope="row">{{ $livro_estoque->nome }}</th>
+                            <th scope="row">{{ $livro_estoque->autor }}</th>
+                            <th scope="row">{{ $livro_estoque->tema }}</th>
+                            <th scope="row">{{ $livro_estoque->estoque }}</th>
+                            <th scope="row">
+                                <form action="" method="post">
+                                    <input type="hidden" name="livro_id" value={{ $livro_estoque->id }}>
+                                    @if ($livro_estoque >= 1)
+                                        <button type="submit" class="btn btn-success"></button>
+                                    @else
+                                        <button disabled="disabled" class="btn btn-gray"></button>
+                                    @endif
+                                </form>
+                            </th>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
         </table>
     </div>
     @include('layouts.footer')

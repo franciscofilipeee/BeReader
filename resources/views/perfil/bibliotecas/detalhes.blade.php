@@ -37,8 +37,40 @@
                 </button>
             </div>
         @endif
-        <table>
-
+        <table class="table" style="min-height: 20rem">
+            <thead>
+                <tr>
+                    <th scope="col">Capa</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Autor</th>
+                    <th scope="col">Tema</th>
+                    <th scope="col">Estoque</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if ($livros_estoque != null)
+                    @foreach ($livros_estoque as $livro_estoque)
+                        <tr>
+                            <td><img src="{{ $livro_estoque->capa }}" style="max-width: 200px"></td>
+                            <th scope="row">{{ $livro_estoque->nome }}</th>
+                            <th scope="row">{{ $livro_estoque->autor }}</th>
+                            <th scope="row">{{ $livro_estoque->tema }}</th>
+                            <th scope="row">{{ $livro_estoque->estoque }}</th>
+                            <th scope="row">
+                                <form action="" method="post">
+                                    <input type="hidden" name="livro_id" value={{ $livro_estoque->id }}>
+                                    @if ($livro_estoque >= 1)
+                                        <button type="submit" class="btn btn-success"></button>
+                                    @else
+                                        <button disabled="disabled" class="btn btn-gray"></button>
+                                    @endif
+                                </form>
+                            </th>
+                        </tr>
+                    @endforeach
+                @endif
+            </tbody>
         </table>
     </div>
     @include('layouts.footer')

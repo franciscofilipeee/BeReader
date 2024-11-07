@@ -33,6 +33,8 @@ Route::post('/admin/registertema', [TemasController::class, 'store'])->name('reg
 
 Route::post('/admin/registerautor', [AutoresController::class, 'store'])->name('register.autores');
 
+Route::post('/admin/delete', [LivrosController::class, 'delete']);
+
 Route::post('/biblioteca/store/fotos', [BibliotecasController::class, 'storeFoto'])->name('bibliotecas.store_fotos');
 
 Route::post('/biblioteca/delete/fotos', [BibliotecasController::class, 'destroyFoto'])->name('bibliotecas.delete_foto');
