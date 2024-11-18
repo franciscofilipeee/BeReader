@@ -8,6 +8,7 @@
     <title>Be Reader - Uma nova forma de ler</title>
     <link rel="shortcut icon" href="{{ url('/images/logo_withoutbg.png') }}" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>

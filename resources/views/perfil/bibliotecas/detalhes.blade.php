@@ -37,7 +37,7 @@
                 </button>
             </div>
         @endif
-        <table class="table" style="min-height: 20rem">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Capa</th>
@@ -49,7 +49,7 @@
                 </tr>
             </thead>
             <tbody>
-                @if ($livros_estoque != null)
+                @if (isset($livros_estoque))
                     @foreach ($livros_estoque as $livro_estoque)
                         <tr>
                             <td><img src="{{ $livro_estoque->capa }}" style="max-width: 200px"></td>

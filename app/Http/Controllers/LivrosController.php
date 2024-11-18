@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Avaliacoes;
+use App\Models\Bibliotecas;
 use App\Models\Livros;
 use App\Models\LivrosEstoque;
 use Illuminate\Http\Request;
@@ -44,7 +45,7 @@ class LivrosController extends Controller
 
     public function list($id)
     {
-        return view('web.livro', ["livro" => Livros::find($id)->first(), "comentarios" => Avaliacoes::where('livro_id', $id)]);
+        return view('web.livro', ["livro" => Livros::find($id)->first(), "comentarios" => Avaliacoes::where('livro_id', $id), "bibliotecas" => Bibliotecas::where('id', LivrosEstoque::where('livro_id', $id))]);
     }
 
     public function delete(Request $request)
