@@ -3,6 +3,13 @@
 <body>
     @include('layouts.nav')
     <div>
+        <h2>Estatísticas</h2>
+        <p>Quantidade de usuários: {{ $qtd_usuarios }}</p>
+        <p>Quantidade de bibliotecas: {{ $qtd_bibliotecas }}</p>
+        <p>Quantidade de livros: {{ $qtd_livros }}</p>
+        <p>Quantidade de comentários: {{ $qtd_comentarios }}</p>
+        <p>Quantidade de emprestimos: {{ $qtd_emprestimos }}</p>
+
         <h2>Cadastrar tema</h2>
         <form action="{{ route('register.temas') }}" method="post">
             @csrf
