@@ -28,7 +28,9 @@
                                 {{ auth()->user()->name }}
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Meu perfil</a></li>
+                                @if (auth()->user()->user_type_id != 3)
+                                    <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Meu perfil</a></li>
+                                @endif
                                 <li><a class="dropdown-item" href="{{ route('dashboard') }}">Dashboard</a></li>
                                 <li><a class="dropdown-item" href="{{ route('logout') }}">Sair</a></li>
                             </ul>
