@@ -20,6 +20,9 @@ class ProfileController extends Controller
     public function edit(Request $request)
     {
         switch (Auth::user()->user_type_id) {
+            case 1:
+                $user = Auth::user();
+                return view('perfil.usuario.index', ['user' => $user]);
             case 2:
                 $biblioteca = Bibliotecas::where('user_id', Auth::user()->id)->first();
                 $fotos = BibliotecaFotos::where('biblioteca_id', $biblioteca->id)->get();

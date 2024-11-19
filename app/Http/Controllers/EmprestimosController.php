@@ -23,7 +23,7 @@ class EmprestimosController extends Controller
                 'final' => $request->final
             ]);
         } else {
-            return redirect('/livro/' . $request->livro_id, [$errors = "Não há estoque!"]);
+            return redirect('/livro/' . $request->livro_id, ["errors" => "Não há estoque!"]);
         }
     }
 }
