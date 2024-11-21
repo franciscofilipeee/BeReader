@@ -76,7 +76,11 @@ class BibliotecasController extends Controller
         if (isset($auth)) {
             $url = Http::get("https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . "$biblioteca->cep" . "&origins=" . "$auth->cep" . "&units=metrical&key=AIzaSyCMXAxo1LgqXFglDqVwPYesjRPTkMRS6wo");
             $json = json_decode($url);
-            return view('perfil.bibliotecas.detalhesdistancia', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "distancia" => $json->rows[0]->elements[0]->distance->text]);
+            if ($json->status != "INVALID_REQUEST") {
+                return view('perfil.bibliotecas.detalhesdistancia', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "distancia" => $json->rows[0]->elements[0]->distance->text]);
+            } else {
+                return view('perfil.bibliotecas.detalhes', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "livros_estoque" => LivrosEstoque::where('user_id', $auth->id)->get()]);
+            }
         } else {
             return view('perfil.bibliotecas.detalhes', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get()]);
         }

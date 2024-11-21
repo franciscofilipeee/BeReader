@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('livros_estoque', function (Blueprint $table) {
             $table->id();
             $table->integer('estoque');
-            $table->unsignedBigInteger('biblioteca_id');
-            $table->foreign('biblioteca_id')->references('id')->on('bibliotecas');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('livro_id');
             $table->foreign('livro_id')->references('id')->on('livros');
             $table->timestamps();

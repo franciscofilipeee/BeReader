@@ -52,18 +52,18 @@
                 @if (isset($livros_estoque))
                     @foreach ($livros_estoque as $livro_estoque)
                         <tr>
-                            <td><img src="{{ $livro_estoque->capa }}" style="max-width: 200px"></td>
-                            <th scope="row">{{ $livro_estoque->nome }}</th>
-                            <th scope="row">{{ $livro_estoque->autor }}</th>
-                            <th scope="row">{{ $livro_estoque->tema }}</th>
+                            <td><img src="{{ $livro_estoque->livro()->first()->capa }}" style="max-width: 200px"></td>
+                            <th scope="row">{{ $livro_estoque->livro()->first()->nome }}</th>
+                            <th scope="row">{{ $livro_estoque->livro()->first()->autor()->first()->nome }}</th>
+                            <th scope="row">{{ $livro_estoque->livro()->first()->tema()->first()->nome }}</th>
                             <th scope="row">{{ $livro_estoque->estoque }}</th>
                             <th scope="row">
-                                <form action="" method="post">
+                                <form action="/emprestimo" method="get">
                                     <input type="hidden" name="livro_id" value={{ $livro_estoque->id }}>
-                                    @if ($livro_estoque >= 1)
-                                        <button type="submit" class="btn btn-success"></button>
+                                    @if ($livro_estoque->estoque >= 1)
+                                        <button type="submit" class="btn btn-success">Emprestar</button>
                                     @else
-                                        <button disabled="disabled" class="btn btn-gray"></button>
+                                        <button disabled="disabled" class="btn btn-gray">Emprestar</button>
                                     @endif
                                 </form>
                             </th>

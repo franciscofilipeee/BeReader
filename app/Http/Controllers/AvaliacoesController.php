@@ -4,28 +4,40 @@ namespace App\Http\Controllers;
 
 use App\Models\Avaliacoes;
 use App\Models\Curtidos;
+use App\Models\Livros;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AvaliacoesController extends Controller
 {
-    public function store(Request $request)
+    public function write($id, Request $request)
     {
+        return view('web.avaliar', ["livro" => Livros::find($id)->first()]);
+    }
+
+    public function store(Request $request, $id)
+    {
+        $request->validate([
+            'resenha' => ['required', 'string', 'max:255'],
+            'nota' => ['required', 'integer', 'max:5']
+        ]);
         $user = Auth::user();
-        $avaliacao = Avaliacoes::where([['livro_id', $request->livro_id], ['user_id', $user->id]])->first();
-        if ($avaliacao->exists()) {
+        $avaliacao = Avaliacoes::where([['livro_id', $id], ['user_id', $user->id]])->first();
+        if ($avaliacao != null) {
             $avaliacao->update([
                 'resenha' => $request->resenha,
-                'nota' => $request->nota
+                'nota' => $request->nota,
             ]);
         } else {
             Avaliacoes::create([
                 'user_id' => $user->id,
-                'livro_id' => $request->livro_id,
+                'livro_id' => $id,
                 'resenha' => $request->resenha,
                 'nota' => $request->nota
             ]);
         }
+
+        return redirect('/livro/' . $id);
     }
 
     public function update(Request $request, $id)
@@ -37,13 +49,14 @@ class AvaliacoesController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function delete($id, Request $request)
     {
         $user = Auth::user();
         $avaliacao = Avaliacoes::find($id)->first();
         if ($user->id == $avaliacao->user_id) {
             $avaliacao->delete();
         }
+        return redirect('/livro/' . $request->livro_id);
     }
 
     public function curtir(Request $request)

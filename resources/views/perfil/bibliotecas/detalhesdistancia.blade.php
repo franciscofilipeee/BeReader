@@ -59,12 +59,12 @@
                             <th scope="row">{{ $livro_estoque->tema }}</th>
                             <th scope="row">{{ $livro_estoque->estoque }}</th>
                             <th scope="row">
-                                <form action="" method="post">
+                                <form action="/emprestimo" method="get">
                                     <input type="hidden" name="livro_id" value={{ $livro_estoque->id }}>
-                                    @if ($livro_estoque >= 1)
-                                        <button type="submit" class="btn btn-success"></button>
+                                    @if ($livro_estoque->estoque >= 1)
+                                        <button type="submit" class="btn btn-success">Emprestar</button>
                                     @else
-                                        <button disabled="disabled" class="btn btn-gray"></button>
+                                        <button disabled="disabled" class="btn btn-gray">Emprestar</button>
                                     @endif
                                 </form>
                             </th>

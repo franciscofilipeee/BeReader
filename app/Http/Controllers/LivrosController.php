@@ -8,6 +8,7 @@ use App\Models\Bibliotecas;
 use App\Models\Livros;
 use App\Models\LivrosEstoque;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LivrosController extends Controller
 {
@@ -34,18 +35,30 @@ class LivrosController extends Controller
 
     public function storeEstoque(Request $request)
     {
-        LivrosEstoque::create([
-            'estoque' => $request->estoque,
-            'biblioteca_id' => $request->biblioteca_id,
-            'livro_id' => $request->livro_id
-        ]);
+        $livrosestoque = LivrosEstoque::where([['livro_id', $request->livro_id], ['user_id', Auth::user()->id]])->first();
+        if ($livrosestoque != null) {
+            $livrosestoque->update([
+                'estoque' => $request->estoque
+            ]);
+        } else {
+            LivrosEstoque::create([
+                'estoque' => $request->estoque,
+                'user_id' => $request->user_id,
+                'livro_id' => $request->livro_id
+            ]);
+        }
+        return redirect('/dashboard');
+    }
 
-        return route('/dashboard');
+    public function deleteEstoque(Request $request)
+    {
+        LivrosEstoque::where([['livro_id', $request->livro_id], ['user_id', Auth::user()->id]])->first()->delete();
+        return redirect('/dashboard');
     }
 
     public function list($id)
     {
-        return view('web.livro', ["livro" => Livros::find($id)->first(), "comentarios" => Avaliacoes::where('livro_id', $id), "bibliotecas" => Bibliotecas::where('id', LivrosEstoque::where('livro_id', $id))]);
+        return view('web.livro', ["livro" => Livros::find($id)->first(), "avaliacoes" => Avaliacoes::where('livro_id', $id)->get(), "bibliotecas" => Bibliotecas::where('user_id', LivrosEstoque::where('livro_id', $id)->first()->user_id)->get(), "nota_media" => Avaliacoes::where('livro_id', $id)->avg('nota')]);
     }
 
     public function delete(Request $request)

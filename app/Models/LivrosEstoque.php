@@ -13,7 +13,12 @@ class LivrosEstoque extends Model
 
     protected $fillable = [
         'estoque',
-        'biblioteca_id',
+        'user_id',
         'livro_id'
     ];
+
+    public function livro()
+    {
+        return $this->hasOne(Livros::class, 'id', 'livro_id');
+    }
 }
