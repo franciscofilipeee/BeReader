@@ -2,7 +2,7 @@
 
 <body>
     @include('layouts.nav')
-    <div>
+    <div style="margin: 1rem">
         <h2>Estatísticas</h2>
         <p>Quantidade de usuários: {{ $qtd_usuarios }}</p>
         <p>Quantidade de bibliotecas: {{ $qtd_bibliotecas }}</p>

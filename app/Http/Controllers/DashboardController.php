@@ -38,7 +38,7 @@ class DashboardController extends Controller
                 $usuarios = User::where('user_type_id', 1)->get()->count();
                 $emprestimos = Emprestimos::get();
                 $autores = Autores::get();
-                return view('dashboard.admin.index', ["temas" => $temas, "livros" => $livros, "usarios" => $usuarios, "emprestimos" => $emprestimos, "autores" => $autores]);
+                return view('dashboard.admin.index', ["temas" => $temas, "livros" => $livros, "usarios" => $usuarios, "emprestimos" => $emprestimos, "autores" => $autores, "qtd_usuarios" => User::count(), "qtd_bibliotecas" => Bibliotecas::count(), "qtd_livros" => Livros::count(), "qtd_comentarios" => Avaliacoes::count(), "qtd_emprestimos" => Emprestimos::count()]);
                 break;
             default:
                 return view('auth.login');

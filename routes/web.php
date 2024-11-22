@@ -9,9 +9,6 @@ use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TemasController;
 use App\Http\Controllers\UserTypeController;
-use App\Models\Bibliotecas;
-use App\Models\Emprestimos;
-use App\Models\Livros;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -40,8 +37,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/delete', [LivrosController::class, 'delete']);
     Route::post('/biblioteca/store/fotos', [BibliotecasController::class, 'storeFoto'])->name('bibliotecas.store_fotos');
     Route::post('/biblioteca/delete/fotos', [BibliotecasController::class, 'destroyFoto'])->name('bibliotecas.delete_foto');
-    Route::get('/emprestimo', [EmprestimosController::class, 'index']);
-    Route::post('/emprestimo', [EmprestimosController::class, 'store']);
+    Route::get('/emprestimo/{biblioteca_id}/{livro_id}', [EmprestimosController::class, 'index']);
+    Route::post('/emprestimo/store', [EmprestimosController::class, 'store']);
     Route::get('/livro/{id}/avaliar', [AvaliacoesController::class, 'write']);
     Route::post('/livro/{id}/avaliar', [AvaliacoesController::class, 'store']);
     Route::post('/avaliacao/{id}/delete', [AvaliacoesController::class, 'delete']);

@@ -11,32 +11,6 @@
             </svg> {{ $biblioteca->logradouro }}, {{ $biblioteca->bairro }}, {{ $biblioteca->cidade }},
             {{ $biblioteca->estado }}.
         </p>
-        @if ($fotos != null)
-        @else
-            <div id="carouselExample" class="carousel slide">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="{{ $fotos->first()->foto }}" class="d-block w-100" alt="...">
-                    </div>
-                    @foreach ($biblioteca->fotos() as $foto)
-                        <div class="carousel-item">
-                            <img src="{{ $foto->foto }}" class="d-block w-100" alt="...">
-                        </div>
-                    @endforeach
-
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        @endif
         <table class="table">
             <thead>
                 <tr>
@@ -58,14 +32,12 @@
                             <th scope="row">{{ $livro_estoque->livro()->first()->tema()->first()->nome }}</th>
                             <th scope="row">{{ $livro_estoque->estoque }}</th>
                             <th scope="row">
-                                <form action="/emprestimo" method="get">
-                                    <input type="hidden" name="livro_id" value={{ $livro_estoque->id }}>
-                                    @if ($livro_estoque->estoque >= 1)
-                                        <button type="submit" class="btn btn-success">Emprestar</button>
+                                @if ($livro_estoque->estoque >= 1)
+                                    <a href="/emprestimo/{{ $biblioteca->id }}/{{ $livro_estoque->id }}"
+                                        class="btn btn-success">Emprestar</button>
                                     @else
                                         <button disabled="disabled" class="btn btn-gray">Emprestar</button>
-                                    @endif
-                                </form>
+                                @endif
                             </th>
                         </tr>
                     @endforeach

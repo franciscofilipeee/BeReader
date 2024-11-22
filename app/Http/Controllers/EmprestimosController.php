@@ -11,9 +11,13 @@ use Illuminate\Support\Facades\Auth;
 
 class EmprestimosController extends Controller
 {
-    public function index(Request $request, $id)
+    public function index($id, $biblioteca_id)
     {
-        return view('web.emprestimo', ["livro" => Livros::where('id', $request->livro_id)->first()]);
+        if (LivrosEstoque::where([["livro_id", $id], ["user_id", $biblioteca_id]])->first() != null) {
+            return view('web.emprestimo', ["livro" => Livros::where('id', $id)->first(), "biblioteca" => $biblioteca_id]);
+        } else {
+            return redirect("/biblioteca/detalhes/$biblioteca_id");
+        }
     }
 
     public function store(Request $request)
@@ -29,7 +33,7 @@ class EmprestimosController extends Controller
                 'final' => $request->final
             ]);
         } else {
-            return redirect('/livro/' . $request->livro_id, ["errors" => "Não há estoque!"]);
+            return redirect("/biblioteca/detalhes/$request->biblioteca_id", ["errors" => "Não há estoque!"]);
         }
     }
 }
