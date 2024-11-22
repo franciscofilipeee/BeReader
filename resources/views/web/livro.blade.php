@@ -40,7 +40,7 @@
                         <img src="{{ url('/storage/' . $avaliacao->user()->first()->foto) }}" style="max-width: 32px">
                         <p>{{ $avaliacao->user()->first()->name }}</p>
                     </div>
-                    <div class="col-md-11">
+                    <div class="col-md-10">
                         <p>{{ $avaliacao->resenha }}</p>
                     </div>
                     <div style="display: flex; gap: 1rem">
@@ -64,69 +64,10 @@
                             </form>
                         @endif
                     </div>
-
                 </div>
                 <hr>
             @endforeach
         @endif
-        <hr>
-        <h2>Bibliotecas disponíveis</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Biblioteca</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Localização</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if ($bibliotecas != null)
-                    @foreach ($bibliotecas as $biblioteca)
-                        <tr>
-                            <th scope="row">{{ $biblioteca->id }}</th>
-                            <th scope="row">{{ $biblioteca->nome }}</th>
-                            <th scope="row">{{ $biblioteca->logradouro }}, {{ $biblioteca->bairro }},
-                                {{ $biblioteca->cidade }}, {{ $biblioteca->estado }}</th>
-                            <th scope="row">
-                                <div style="gap: 1rem; display: flex;">
-                                    <a href="/biblioteca/detalhes/{{ $biblioteca->id }}"
-                                        class="btn btn-gray">Visitar</a>
-                                    <button type="button" class="btn btn-success" data-toggle="modal"
-                                        data-target="#exampleModal">Emprestimo</button>
-                                </div>
-                            </th>
-                        </tr>
-                    @endforeach
-                @endif
-            </tbody>
-        </table>
-    </div>
-    <div class="modal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Empréstimo</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @if (isset($biliotecas))
-                        <form action="/emprestimo" method="post">
-                            @csrf
-                            <input type="hidden" name="biblioteca_id" value="{{ $biblioteca->id }}">
-                            <input type="hidden" name="livro_id" value="{{ $livro->id }}">
-                            <input type="date" name="final" class="form-control">
-                        </form>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Emprestar</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                </div>
-            </div>
-        </div>
     </div>
     @include('layouts.footer')
 </body>
