@@ -4,13 +4,20 @@
     @include('layouts.nav')
     <div style="margin: 1rem;">
         <h1>Meu perfil</h1>
-        <img src="{{ $user->foto }}" style="max-width: 128px;">
+        <img src="{{ url('/storage/' . $user->foto) }}" style="max-width: 128px;">
+        <br>
+        <br>
         <label>Trocar foto</label>
-        <form action="" method="put">
+        <form action="/user/foto/store" method="post" enctype="multipart/form-data">
+            @csrf
             <div class="col-md-3">
                 <input type="file" name="foto" class="form-control">
             </div>
-            <button type="submit" class="btn btn-success"></button>
+            <br>
+            <div style="display: flex; gap: 1rem;">
+                <button type="submit" class="btn btn-success">Enviar</button>
+                <a href="/user/foto/delete" class="btn btn-danger">Excluir Foto</a>
+            </div>
         </form>
         <form action="" method="put">
             <br>
@@ -18,6 +25,13 @@
                 <div class="col-md-12">
                     <label>Nome</label>
                     <input type="text" name="biblioteca_name" class="form-control" value="{{ $user->name }}">
+                </div>
+            </div>
+            <br>
+            <div class="col-md-12" style="display: flex">
+                <div class="col-md-12">
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" value={{ $user->email }}>
                 </div>
             </div>
             <br>
@@ -75,9 +89,6 @@
                         <option value="TO">Tocantins</option>
                     </select>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <input type="email" name="email" class="form-control" value={{ $user->email }}>
             </div>
             <br>
             <button type="submit" class="btn btn-success">Atualizar</button>

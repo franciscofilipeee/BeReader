@@ -59,6 +59,16 @@ class AvaliacoesController extends Controller
         return redirect('/livro/' . $request->livro_id);
     }
 
+    public function deleteProfile($id, Request $request)
+    {
+        $user = Auth::user();
+        $avaliacao = Avaliacoes::find($id)->first();
+        if ($user->id == $avaliacao->user_id) {
+            $avaliacao->delete();
+        }
+        return redirect('/dashboard');
+    }
+
     public function curtir(Request $request)
     {
         $user = Auth::user();

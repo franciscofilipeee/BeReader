@@ -18,4 +18,14 @@ class Emprestimos extends Model
         'inicio',
         'final'
     ];
+
+    public function livro()
+    {
+        return $this->hasOne(Livros::class, "id", "livro_id");
+    }
+
+    public function biblioteca()
+    {
+        return $this->hasOne(Bibliotecas::class, "user_id", "biblioteca_id");
+    }
 }

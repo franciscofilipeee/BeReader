@@ -42,6 +42,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/livro/{id}/avaliar', [AvaliacoesController::class, 'write']);
     Route::post('/livro/{id}/avaliar', [AvaliacoesController::class, 'store']);
     Route::post('/avaliacao/{id}/delete', [AvaliacoesController::class, 'delete']);
+    Route::post('/profile/avaliacao/{id}/delete', [AvaliacoesController::class, 'deleteProfile']);
+    Route::post('/user/foto/store', [ProfileController::class, 'uploadFoto']);
+    Route::get('/user/foto/delete', [ProfileController::class, 'deleteFoto']);
 });
 
 Route::get('/list/usertype', [UserTypeController::class, 'list']);

@@ -22,4 +22,9 @@ class Avaliacoes extends Model
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }
+
+    public function livro()
+    {
+        return $this->hasOne(Livros::class, 'id', 'livro_id');
+    }
 }

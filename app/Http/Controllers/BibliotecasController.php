@@ -72,17 +72,17 @@ class BibliotecasController extends Controller
     {
         $biblioteca = Bibliotecas::findOrFail($id);
         $auth = Auth::user();
-        $livros_estoque = LivrosEstoque::where("biblioteca_id", $biblioteca->id);
         if (isset($auth)) {
-            $url = Http::get("https://maps.googleapis.com/maps/api/distancematrix/json?destinations=" . "$biblioteca->cep" . "&origins=" . "$auth->cep" . "&units=metrical&key=AIzaSyCMXAxo1LgqXFglDqVwPYesjRPTkMRS6wo");
+            $url = Http::get("https://maps.googleapis.com/maps/api/distancematrix/json?destinations=$biblioteca->cep&origins=$auth->cep&units=metrical&key=AIzaSyCMXAxo1LgqXFglDqVwPYesjRPTkMRS6wo");
             $json = json_decode($url);
             if ($json->status != "INVALID_REQUEST") {
-                return view('perfil.bibliotecas.detalhesdistancia', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "distancia" => $json->rows[0]->elements[0]->distance->text]);
+                return view('perfil.bibliotecas.detalhesdistancia', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "distancia" => $json->rows[0]->elements[0]->distance->text, "livros_estoque" => LivrosEstoque::where('user_id', $biblioteca->user_id)->get()]);
             } else {
-                return view('perfil.bibliotecas.detalhes', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "livros_estoque" => LivrosEstoque::where('user_id', $auth->id)->get()]);
+                dd(LivrosEstoque::where('user_id', $biblioteca->user_id)->get());
+                return view('perfil.bibliotecas.detalhes', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "livros_estoque" => LivrosEstoque::where('user_id', $biblioteca->user_id)->get()]);
             }
         } else {
-            return view('perfil.bibliotecas.detalhes', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get()]);
+            return view('perfil.bibliotecas.detalhes', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "livros_estoque" => LivrosEstoque::where('user_id', $biblioteca->user_id)->get()]);
         }
     }
 

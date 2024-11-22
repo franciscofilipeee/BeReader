@@ -53,20 +53,19 @@
                 @if (isset($livros_estoque))
                     @foreach ($livros_estoque as $livro_estoque)
                         <tr>
-                            <td><img src="{{ $livro_estoque->capa }}" style="max-width: 200px"></td>
+                            <td><img src="{{ url('/storage/' . $livro_estoque->livro()->first()->capa) }}"
+                                    style="max-width: 200px"></td>
                             <th scope="row">{{ $livro_estoque->nome }}</th>
                             <th scope="row">{{ $livro_estoque->autor }}</th>
                             <th scope="row">{{ $livro_estoque->tema }}</th>
                             <th scope="row">{{ $livro_estoque->estoque }}</th>
                             <th scope="row">
-                                <form action="/emprestimo" method="get">
-                                    <input type="hidden" name="livro_id" value={{ $livro_estoque->id }}>
-                                    @if ($livro_estoque->estoque >= 1)
-                                        <button type="submit" class="btn btn-success">Emprestar</button>
+                                @if ($livro_estoque->estoque >= 1)
+                                    <a href="/emprestimo/{{ $biblioteca->user_id }}/{{ $livro_estoque->livro_id }}"
+                                        class="btn btn-success">Emprestar</button>
                                     @else
                                         <button disabled="disabled" class="btn btn-gray">Emprestar</button>
-                                    @endif
-                                </form>
+                                @endif
                             </th>
                         </tr>
                     @endforeach

@@ -52,7 +52,6 @@
                         @if (auth()->user()->id == $avaliacao->user()->first()->id)
                             <form action="/avaliacao/{{ $avaliacao->id }}/delete" method="post">
                                 @csrf
-                                <input type="hidden" name="livro_id" value="{{ $livro->id }}">
                                 <button type="submit" class="btn btn-danger"><svg xmlns="http://www.w3.org/2000/svg"
                                         width="16" height="16" fill="currentColor" class="bi bi-trash"
                                         viewBox="0 0 16 16">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\BibliotecaFotos;
 use App\Models\Bibliotecas;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -69,5 +70,24 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function uploadFoto(Request $request)
+    {
+        $user = Auth::user()->id;
+        $foto = $request->foto->store('foto_perfil', 'public');
+        User::where('id', $user)->update([
+            "foto" => $foto
+        ]);
+        return redirect('/profile');
+    }
+
+    public function deleteFoto()
+    {
+        $user = Auth::user()->id;
+        User::where('id', $user)->update([
+            "foto" => "profile_pic.svg"
+        ]);
+        return redirect('/profile');
     }
 }

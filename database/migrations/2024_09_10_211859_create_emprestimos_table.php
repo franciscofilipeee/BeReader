@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('biblioteca_id');
-            $table->foreign('biblioteca_id')->references('id')->on('bibliotecas');
+            $table->foreign('biblioteca_id')->references('user_id')->on('bibliotecas');
             $table->date('inicio');
             $table->date('final');
             $table->timestamps();
