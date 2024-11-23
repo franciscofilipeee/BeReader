@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('biblioteca_id')->references('user_id')->on('bibliotecas');
             $table->date('inicio');
             $table->date('final');
+            $table->integer('status');
             $table->timestamps();
         });
     }

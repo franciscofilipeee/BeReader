@@ -16,7 +16,8 @@ class Emprestimos extends Model
         'user_id',
         'biblioteca_id',
         'inicio',
-        'final'
+        'final',
+        'status'
     ];
 
     public function livro()
@@ -27,5 +28,10 @@ class Emprestimos extends Model
     public function biblioteca()
     {
         return $this->hasOne(Bibliotecas::class, "user_id", "biblioteca_id");
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, "id", "user_id");
     }
 }
