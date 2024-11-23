@@ -39,7 +39,7 @@ class BibliotecasController extends Controller
             'estado' => $request->estado,
             'cep' => $request->cep,
             'escola' => $request->escola,
-            'user_id' => $user->first()->id
+            'user_id' => $user->id
         ]);
 
         event(new Registered($user));
@@ -78,7 +78,6 @@ class BibliotecasController extends Controller
             if ($json->status != "INVALID_REQUEST") {
                 return view('perfil.bibliotecas.detalhesdistancia', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "distancia" => $json->rows[0]->elements[0]->distance->text, "livros_estoque" => LivrosEstoque::where('user_id', $biblioteca->user_id)->get()]);
             } else {
-                dd(LivrosEstoque::where('user_id', $biblioteca->user_id)->get());
                 return view('perfil.bibliotecas.detalhes', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "livros_estoque" => LivrosEstoque::where('user_id', $biblioteca->user_id)->get()]);
             }
         } else {

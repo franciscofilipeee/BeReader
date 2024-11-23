@@ -52,6 +52,11 @@
                 autofocus autocomplete="name" />
         </div>
         <div class="mt-4">
+            <x-input-label for="biblioteca_nome" :value="__('CEP')" />
+            <x-text-input id="cep" class="form-control" type="text" name="cep" required autofocus
+                autocomplete="name" />
+        </div>
+        <div class="mt-4">
             <x-input-label for="biblioteca_nome" :value="__('Logradouro')" />
             <x-text-input id="biblioteca_logradouro" class="form-control" type="text" name="biblioteca_logradouro"
                 required autofocus autocomplete="name" />
@@ -65,11 +70,6 @@
             <x-input-label for="biblioteca_nome" :value="__('Cidade')" />
             <x-text-input id="biblioteca_cidade" class="form-control" type="text" name="biblioteca_cidade" required
                 autofocus autocomplete="name" />
-        </div>
-        <div class="mt-4">
-            <x-input-label for="biblioteca_nome" :value="__('CEP')" />
-            <x-text-input id="cep" class="form-control" type="text" name="cep" required autofocus
-                autocomplete="name" />
         </div>
         <div class="mt-4">
             <x-input-label for="biblioteca_nome" :value="__('Estado')" />

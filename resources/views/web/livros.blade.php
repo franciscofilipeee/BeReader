@@ -15,7 +15,7 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{ $livro->nome }}</h5>
-                                <p class="card-text">{{ $livro->autor_id }}</p>
+                                <p class="card-text">{{ $livro->autor()->first()->nome }}</p>
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
     @include('layouts.nav')
     <div style="margin: 1rem">
         <h2>Estatísticas</h2>
-        <p>Quantidade de usuários: {{ $qtd_usuarios }}</p>
+        <p>Quantidade de usuários: {{ $qtd_usuarios - $qtd_bibliotecas }}</p>
         <p>Quantidade de bibliotecas: {{ $qtd_bibliotecas }}</p>
         <p>Quantidade de livros: {{ $qtd_livros }}</p>
         <p>Quantidade de comentários: {{ $qtd_comentarios }}</p>
