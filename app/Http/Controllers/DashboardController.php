@@ -27,7 +27,7 @@ class DashboardController extends Controller
                 return view('dashboard.usuario.index', ["livros" => $livros, "emprestimos" => $emprestimos, "bibliotecas" => $bibliotecas, "resenhas" => $resenhas]);
                 break;
             case 2:
-                $biblioteca_id = Bibliotecas::where('user_id', Auth::user()->id)->first()->id;
+                $biblioteca_id = Bibliotecas::where('user_id', Auth::user()->id)->first()->user_id;
                 $emprestimos = Emprestimos::where('biblioteca_id', $biblioteca_id)->get();
                 $livros = Livros::get();
                 return view('dashboard.bibliotecas.index', ["livros" => $livros, "emprestimos" => $emprestimos, "estoque" => LivrosEstoque::where('user_id', Auth::user()->id)->get()]);

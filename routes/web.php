@@ -9,6 +9,7 @@ use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TemasController;
 use App\Http\Controllers\UserTypeController;
+use App\Models\Emprestimos;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/profile/avaliacao/{id}/delete', [AvaliacoesController::class, 'deleteProfile']);
     Route::post('/user/foto/store', [ProfileController::class, 'uploadFoto']);
     Route::get('/user/foto/delete', [ProfileController::class, 'deleteFoto']);
+    Route::post('/validar/emprestimo', [EmprestimosController::class, 'validar']);
 });
 
 Route::get('/list/usertype', [UserTypeController::class, 'list']);
