@@ -12,7 +12,7 @@ class AvaliacoesController extends Controller
 {
     public function write($id, Request $request)
     {
-        return view('web.avaliar', ["livro" => Livros::find($id)->first()]);
+        return view('web.avaliar', ["livro" => Livros::where('id', $id)->first()]);
     }
 
     public function store(Request $request, $id)

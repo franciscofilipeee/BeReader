@@ -58,7 +58,7 @@ class LivrosController extends Controller
 
     public function list($id)
     {
-        return view('web.livro', ["livro" => Livros::find($id)->first(), "avaliacoes" => Avaliacoes::where('livro_id', $id)->get(), "nota_media" => Avaliacoes::where('livro_id', $id)->avg('nota'), "user" => Auth::user()]);
+        return view('web.livro', ["livro" => Livros::where('id', $id)->first(), "avaliacoes" => Avaliacoes::where('livro_id', $id)->get(), "nota_media" => Avaliacoes::where('livro_id', $id)->avg('nota'), "user" => Auth::user()]);
     }
 
     public function delete(Request $request)
