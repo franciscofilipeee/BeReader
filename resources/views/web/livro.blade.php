@@ -36,14 +36,14 @@
         @if (isset($avaliacoes))
             @foreach ($avaliacoes as $avaliacao)
                 <div class="col-md-12" style="display: flex">
-                    <div>
+                    <div class="col-md-1">
                         <img src="{{ url('/storage/' . $avaliacao->user()->first()->foto) }}" style="max-width: 32px">
                         <p>{{ $avaliacao->user()->first()->name }}</p>
                     </div>
                     <div class="col-md-10">
                         <p>{{ $avaliacao->resenha }}</p>
                     </div>
-                    <div style="display: flex; gap: 1rem">
+                    <div class="col-md-1">
                         <p><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-star-fill" viewBox="0 0 16 16">
                                 <path
