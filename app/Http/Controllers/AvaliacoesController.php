@@ -37,12 +37,11 @@ class AvaliacoesController extends Controller
             ]);
         }
 
-        return redirect('/livro/' . $id);
+        return redirect("/livro/$id");
     }
 
     public function update(Request $request, $id)
     {
-        $user = Auth::user();
         Avaliacoes::find($id)->update([
             'resenha' => $request->resenha,
             'nota' => $request->nota

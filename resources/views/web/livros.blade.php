@@ -5,7 +5,7 @@
     <h1>Lista de livros</h1>
     <div class="w-100 gap-2">
         @foreach ($livros as $livro)
-            <a href="{{ '/livro/' . $livro->id }}">
+            <a href="{{ '/livro/' . $livro->id }}" style="text-decoration: none">
                 <div class="card mb-3">
                     <div class="row-g-0 d-flex">
                         <div class="col-md-4">

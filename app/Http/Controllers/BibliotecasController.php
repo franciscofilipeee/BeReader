@@ -73,16 +73,14 @@ class BibliotecasController extends Controller
         $biblioteca = Bibliotecas::findOrFail($id);
         $auth = Auth::user();
         if (isset($auth)) {
-            $url = Http::get("https://maps.googleapis.com/maps/api/distancematrix/json?destinations=$biblioteca->cep&origins=$auth->cep&units=metrical&key=AIzaSyCMXAxo1LgqXFglDqVwPYesjRPTkMRS6wo");
+            $url = Http::get("https://api.brasilaberto.com/v1/distance?pointA=$auth->cep&pointB=$biblioteca->cep&mode=STRAIGHT_LINE");
             $json = json_decode($url);
-            if ($json->status != "INVALID_REQUEST") {
-                return view('perfil.bibliotecas.detalhesdistancia', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "distancia" => $json->rows[0]->elements[0]->distance->text, "livros_estoque" => LivrosEstoque::where('user_id', $biblioteca->user_id)->get()]);
-            } else {
-                return view('perfil.bibliotecas.detalhes', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "livros_estoque" => LivrosEstoque::where('user_id', $biblioteca->user_id)->get()]);
-            }
-        } else {
-            return view('perfil.bibliotecas.detalhes', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "livros_estoque" => LivrosEstoque::where('user_id', $biblioteca->user_id)->get()]);
         }
+        if (isset($json->rows[0]->elements[0]->distance->text))
+            $distancia = $json->rows[0]->elements[0]->distance->text;
+        else
+            $distancia = null;
+        return view('perfil.bibliotecas.detalhesdistancia', ["biblioteca" => $biblioteca, "fotos" => BibliotecaFotos::where('biblioteca_id', $id)->get(), "distancia" => $distancia, "livros_estoque" => LivrosEstoque::where('user_id', $biblioteca->user_id)->get()]);
     }
 
     public function destroy($id)
