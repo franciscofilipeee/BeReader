@@ -7,6 +7,8 @@ use App\Models\Bibliotecas;
 use App\Models\Emprestimos;
 use App\Models\Livros;
 use App\Models\LivrosEstoque;
+use App\Models\User;
+use App\Notifications\EmprestimoNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +25,9 @@ class EmprestimosController extends Controller
 
     public function store(Request $request)
     {
-        $user_id = Auth::user()->id;
+        $user_id = Auth::user();
+
+        $user = User::where('id', $user_id)->first();
 
         $livros_estoque = LivrosEstoque::where([['livro_id', $request->livro_id], ['user_id', $request->biblioteca_id], ['estoque', '>', 0]])->first();
 
@@ -40,6 +44,13 @@ class EmprestimosController extends Controller
             $livros_estoque->update([
                 "estoque" => $livros_estoque->estoque - 1
             ]);
+
+            $url = env('APP_URL');
+
+            $link = "$url/emprestimo/validar/$emprestimo->id";
+
+            $user->notify(new EmprestimoNotification($link));
+
             return redirect("/bibliotecas");
         } else {
             return redirect("/biblioteca/detalhes/$request->biblioteca_id", ["errors" => "Não há estoque!"]);
@@ -49,16 +60,18 @@ class EmprestimosController extends Controller
     public function validar(Request $request)
     {
         $emprestimo = Emprestimos::where('id', $request->id)->first();
+        $cliente = User::where('id', $emprestimo->user_id)->first();
         $estoque = LivrosEstoque::where([["livro_id", $emprestimo->livro_id], ["user_id", $emprestimo->biblioteca_id]])->first();
         if ($request->status == 0) {
             $estoque->update([
                 "estoque" => $estoque->estoque + 1
             ]);
             $emprestimo->delete();
+        } else {
+            $emprestimo->update([
+                'status' => 1
+            ]);
         }
-        Emprestimos::where('id', $request->id)->update([
-            'status' => 1
-        ]);
 
         return redirect('/dashboard');
     }

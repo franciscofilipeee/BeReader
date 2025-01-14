@@ -8,6 +8,7 @@ use App\Http\Controllers\EmprestimosController;
 use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TemasController;
+use App\Http\Controllers\UsadosController;
 use App\Http\Controllers\UserTypeController;
 use App\Models\Emprestimos;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,7 @@ Route::get('/livro/{id}', [LivrosController::class, 'list']);
 Route::get('/bibliotecas', [BibliotecasController::class, 'index']);
 Route::get('/biblioteca/detalhes/{id}', [BibliotecasController::class, 'list']);
 
+Route::get('/vendas', [UsadosController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
